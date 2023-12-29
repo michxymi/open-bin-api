@@ -5,7 +5,11 @@ const getAllCouncils = () => {
 };
 
 const getCouncilBinCollectionDate = async (council, address) => {
-  return await Council.getCouncilBinCollectionDate(council, address);
+  try {
+    return await Council.getCouncilBinCollectionDate(council, address);
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
