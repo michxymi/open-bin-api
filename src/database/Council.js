@@ -1,20 +1,26 @@
-const westOxon = require("./councils/west-oxfordshire");
+const westOxfordshire = require("./councils/west-oxfordshire");
 
 const councilMap = {
   "oxford-city": true,
-  "cherwell": true,
+  cherwell: true,
   "south-oxfordshire": true,
   "vale-of-white-horse": true,
-  "west-oxfordshire": westOxon,
+  "west-oxfordshire": westOxfordshire,
 };
 
 const getAllCouncils = () => {
-    return Object.keys(councilMap)
-}
+  return Object.keys(councilMap);
+};
 
 const getCouncilBinCollectionDate = async (council, address) => {
-    const json = await councilMap[council](address)
-    return councilMap[council](address);
-}
+  try {
+    return await councilMap[council](address);
+  } catch (error) {
+    throw {
+      status: 404,
+      message: error.toString(),
+    };
+  }
+};
 
 module.exports = { getAllCouncils, getCouncilBinCollectionDate };
