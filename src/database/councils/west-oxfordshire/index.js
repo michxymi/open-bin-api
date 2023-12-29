@@ -66,9 +66,8 @@ async function get(address, headless = "new") {
   try {
     await typeAndSelectAddress(page, address.toUpperCase());
   } catch (error) {
-    console.error(error.toString());
     await browser.close();
-    return {};
+    throw error;
   }
 
   const tableRows = await getTableRows(page);
@@ -79,6 +78,4 @@ async function get(address, headless = "new") {
   return json;
 }
 
-//   const json = await get("98 Newland, Witney, OX28 3JQ");
-//   console.log(json);
 module.exports = get;
