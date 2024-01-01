@@ -1,24 +1,21 @@
-const westOxfordshire = require("./councils/west-oxfordshire");
+const db = require("./db");
 
-const councilMap = {
-  "oxford-city": true,
-  cherwell: true,
-  "south-oxfordshire": true,
-  "vale-of-white-horse": true,
-  "west-oxfordshire": westOxfordshire,
-};
-
-const getAllCouncils = () => {
-  return Object.keys(councilMap);
-};
+const getAllCouncils = () => Object.keys(db);
 
 const getCouncilBinCollectionDate = async (council, address) => {
+  const found = db.find((item) => item.name === council);
+  if (!found) {
+    throw {
+      status: 404,
+      message: `Council ${council} not found!`,
+    };
+  }
   try {
-    return await councilMap[council](address);
+    return await found.scrapeMethod(address);
   } catch (error) {
     throw {
       status: 404,
-      message: error.toString(),
+      message: error?.message || error,
     };
   }
 };
