@@ -26,7 +26,7 @@ const getCouncilBinCollectionDate = async (req, res) => {
   } catch (error) {
     res
       .status(error.status)
-      .send({ status: "FAILED", data: { error: error.message } });
+      .send({ status: "FAILED", data: { error: error?.message || error } });
     return;
   }
 };
