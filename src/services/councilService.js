@@ -1,7 +1,5 @@
 const Council = require("../database/Council");
 
-const getAllCouncils = () => {
-  Council.getAllCouncils();
-};
+const getAllCouncils = () => Council.getAllCouncils();
 
-module.exports = getAllCouncils;
+module.exports = { getAllCouncils };
