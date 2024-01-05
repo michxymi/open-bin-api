@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install gnupg wget -y && \
   sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
   apt-get update && \
   apt-get install google-chrome-stable -y --no-install-recommends && \
-  rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/* && \
+  groupadd -r openbinio && useradd -rm -g openbinio -G audio,video openbinio
+
+USER openbinio
 
 WORKDIR /app
 
